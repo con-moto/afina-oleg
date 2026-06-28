@@ -1,6 +1,139 @@
-// COUNTDOWN
+// ---------- INTRO + HERO + SCROLL REVEAL (без музыки) ----------
+
+document.addEventListener('DOMContentLoaded', () => {
+  const initScrollReveal = () => {
+    const revealSections = document.querySelectorAll(
+      '.hero2, .hero, .intro-text-block, .section--calendar, .section--location, .section--celebration, .section--countdown, .section--timing-custom, .section--guest-form, .section--hotels, .section--wishes'
+    );
+
+    if (!revealSections.length) return;
+
+    if ('IntersectionObserver' in window) {
+      const revealObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('is-visible');
+              obs.unobserve(entry.target);
+            }
+          });
+        },
+        {
+          root: null,
+          threshold: 0.25,
+        }
+      );
+
+      revealSections.forEach((sec) => revealObserver.observe(sec));
+    } else {
+      revealSections.forEach((sec) => sec.classList.add('is-visible'));
+    }
+  };
+
+  // HERO + TIMING scroll animations (точечные)
+  const initHeroAndTimingAnimations = () => {
+    // HERO: имена, дата, счётчик
+    const hero = document.querySelector('.hero');
+    if (hero && 'IntersectionObserver' in window) {
+      // начальное состояние для hero-компонентов
+      hero.classList.add('hero-scroll-init');
+
+      const heroObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              hero.classList.remove('hero-scroll-init');
+              hero.classList.add('hero-scroll-visible');
+              obs.unobserve(hero);
+            }
+          });
+        },
+        {
+          root: null,
+          threshold: 0.3,
+        }
+      );
+
+      heroObserver.observe(hero);
+    }
+
+    // TIMING: шахматный порядок
+    const timingSection = document.querySelector('.section--timing');
+    if (timingSection && 'IntersectionObserver' in window) {
+      timingSection.classList.add('timeline-scroll-init');
+
+      const timingObserver = new IntersectionObserver(
+        (entries, obs) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              timingSection.classList.remove('timeline-scroll-init');
+              timingSection.classList.add('timeline-scroll-visible');
+              obs.unobserve(timingSection);
+            }
+          });
+        },
+        {
+          root: null,
+          threshold: 0.2,
+        }
+      );
+
+      timingObserver.observe(timingSection);
+    }
+  };
+
+  const startPageAnimations = () => {
+    initScrollReveal();
+    initHeroAndTimingAnimations();
+  };
+
+  const intro = document.querySelector('.intro-screen');
+  const introHint = document.querySelector('.intro-tap-hint');
+
+  if (intro) {
+    const startExperience = async () => {
+      if (startExperience.started) return;
+      startExperience.started = true;
+
+      intro.classList.add('card-out');
+      intro.classList.add('hide-hint');
+
+      const finishIntro = () => {
+        intro.classList.add('is-hidden');
+        setTimeout(() => {
+          intro.style.display = 'none';
+          startPageAnimations();
+        }, 600);
+      };
+
+      const card = intro.querySelector('.intro-card');
+      if (card) {
+        card.addEventListener('transitionend', finishIntro, { once: true });
+      } else {
+        setTimeout(finishIntro, 900);
+      }
+    };
+
+    const trigger = () => startExperience();
+
+    intro.addEventListener('touchend', trigger, { once: true });
+    intro.addEventListener('pointerdown', trigger, { once: true });
+    intro.addEventListener('click', trigger, { once: true });
+
+    if (introHint) {
+      introHint.addEventListener('touchend', trigger, { once: true });
+      introHint.addEventListener('pointerdown', trigger, { once: true });
+      introHint.addEventListener('click', trigger, { once: true });
+    }
+  } else {
+    startPageAnimations();
+  }
+});
+
+// ---------- COUNTDOWN ----------
+
 (function () {
-  const targetDate = new Date("2026-07-25T00:00:00+03:00").getTime();
+  const targetDate = new Date("2026-10-19T00:00:00+03:00").getTime();
 
   const daysEl = document.getElementById("cd-days");
   const hoursEl = document.getElementById("cd-hours");
@@ -42,7 +175,8 @@
   const timerId = setInterval(updateCountdown, 1000);
 })();
 
-// TIMELINE ORDER ON MOBILE (<=902px)
+// ---------- TIMELINE ORDER ON MOBILE (<=902px) ----------
+
 (function () {
   const BREAKPOINT = 902;
   const timeline = document.querySelector(".timeline");
@@ -57,7 +191,7 @@
     right: Array.from(rightCol.children),
   };
 
-  const MOBILE_ORDER = ["12:00", "15:00", "16:30", "21:00", "23:30"];
+  const MOBILE_ORDER = ["15:30", "16:20", "17:00", "22:00"];
 
   let isMobileApplied = false;
 
@@ -107,7 +241,8 @@
   onResize();
 })();
 
-/// FORM HANDLERS (Vercel backend)
+// ---------- FORM HANDLERS (Vercel backend) ----------
+
 (function () {
   function attachFormHandler(formId, statusId) {
     const form = document.getElementById(formId);
@@ -125,7 +260,6 @@
 
       formData.forEach((value, key) => {
         if (plain[key]) {
-          // если несколько значений с одним ключом (alcohol[])
           if (!Array.isArray(plain[key])) {
             plain[key] = [plain[key]];
           }

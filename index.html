@@ -15,25 +15,49 @@
   <link rel="stylesheet" href="./style.css" />
 </head>
 <body>
+
+  <!-- INTRO (конверт) -->
+  <div class="intro-screen">
+    <div class="intro-bg"></div>
+
+    <div class="intro-envelope">
+      <img src="images/intro-envelope.png" alt="" class="intro-envelope-img">
+
+      <div class="intro-card">
+        <img src="images/intro-card.png" alt="" class="intro-card-img">
+      </div>
+
+      <img src="images/intro-envelope-front.png" alt="" class="intro-envelope-front">
+
+      <div class="intro-tap-hint">
+        <span class="intro-tap-text">
+          Для просмотра коснитесь экрана
+        </span>
+        <span class="intro-hand-icon"></span>
+      </div>
+    </div>
+  </div>
+
+  <!-- ОСНОВНОЙ САЙТ (ПЕРВЫЙ), БЕЗ ИЗМЕНЕНИЙ -->
   <div class="page">
-    <!-- HERO -->
-    <header class="hero">
+    <!-- HERO (старый) -->
+    <header class="hero hero-scroll-init">
       <div class="hero__content">
         <div class="hero__column">
           <div class="hero__names-block">
             <div class="hero__names">
               <span class="hero__name hero__name-top">
-                Никол<span class="hero__name-last">ь</span>
+                Афин<span class="hero__name-last">а</span>
               </span>
               <span class="hero__name hero__name-and">And</span>
               <span class="hero__name hero__name-bottom">
-                Георги<span class="hero__name-last">й</span>
+                Оле<span class="hero__name-last">г</span>
               </span>
             </div>
 
             <div class="hero__date-wrap">
               <div class="hero__date">
-                <span class="hero__day">25.07</span>
+                <span class="hero__day">19.10</span>
                 <span class="hero__year">2026</span>
               </div>
               <div class="hero__text">ждём вас на нашей свадьбе</div>
@@ -85,7 +109,7 @@
           мы не представляем этот день без вас!
         </p>
         <p class="section__paragraph paragraph-with-pseudo">
-          до 24 мая, пожалуйста, подтвердите ваше присутствие!
+          до 19 августа, пожалуйста, подтвердите ваше присутствие!
         </p>
         <a href="#rsvp" class="section__link">заполнить анкету</a>
       </div>
@@ -97,14 +121,39 @@
       <a href="#rsvp" class="reply-button">ответить</a>
     </section>
 
+      <!-- НОВЫЙ HERO СВЕРХУ (hero2), БЕЗ ПЕРЕКЛЮЧАТЕЛЯ ЯЗЫКА И БЕЗ ИМЁН -->
+  <section class="hero2">
+    <div class="hero2-inner">
+
+      <h1 class="hero2-title-top">Wedding</h1>
+
+      <div class="hero2-row">
+        <div class="hero2-photo hero2-photo-left">
+          <img src="./images/child-girl.jpg" alt="Детское фото Юлии">
+        </div>
+
+        <div class="hero2-date">
+          <span>19</span>
+          <span>10</span>
+          <span>26</span>
+        </div>
+
+        <div class="hero2-photo hero2-photo-right">
+          <img src="./images/child-boy.jpg" alt="Детское фото Франческо">
+        </div>
+      </div>
+
+    </div>
+  </section>
+
     <!-- LOCATION -->
     <section class="section section--location" id="location">
       <div class="section__inner section__inner--narrow">
         <h2 class="section__title-script">Локация</h2>
         <p class="section__paragraph">
-          ресторан география, ул. ленина, 2, москва
+          Фурштатская улица, 52, Санкт-Петербург
         </p>
-        <a href="#rsvp" class="section__link">смотреть  локацию</a>
+        <a href="https://yandex.ru/maps/org/dvorets_brakosochetaniya_2/1063007010/?ll=30.364686%2C59.945369&z=18.8" target="_blank"  class="section__link">смотреть  локацию</a>
       </div>
     </section>
 
@@ -122,23 +171,18 @@
           <div class="timeline__col timeline__col--left">
             <div class="timeline__item">
               <p class="timeline__text">
-                12:00 - регистрация в загсе
+                15:30 - сбор у загса
               </p>
               <p class="timeline__address">
-                ул. тихвинская, 11/16, великий новгород
+                фурштатская улица, 52
               </p>
             </div>
             <div class="timeline__item">
               <p class="timeline__text">
-                16:30 - свадебный ужин
+                17:00 - свадебный ужин
               </p>
               <p class="timeline__address">
-                ресторан география, ул. газон, 2, великий новгород
-              </p>
-            </div>
-            <div class="timeline__item">
-              <p class="timeline__text">
-                23:30 - окончание вечера
+                фурштатская улица, 52
               </p>
             </div>
           </div>
@@ -155,18 +199,15 @@
           <div class="timeline__col timeline__col--right">
             <div class="timeline__item">
               <p class="timeline__text">
-                15:00 - фотосессия
+                16:20 - регистрация в загсе
               </p>
               <p class="timeline__address">
-                ул. тихвинская, 11/16, великий новгород
+                фурштатская улица, 52
               </p>
             </div>
             <div class="timeline__item">
               <p class="timeline__text">
-                21:00 - праздничный торт
-              </p>
-              <p class="timeline__address">
-                самые теплые пожелания и объятия
+                22:00 - окончание вечера
               </p>
             </div>
           </div>
@@ -195,7 +236,7 @@
     </section>
 
     <!-- DETAILS -->
-    <section class="details section--dark" id="details">
+    <section class="details" id="details">
       <div class="wrapper">
         <h2 class="section__title-script">Details</h2>
         <form
@@ -332,43 +373,6 @@
       </div>
     </section>
 
-    <!-- WISHES -->
-    <section class="video-line" id="wishes">
-      <video
-        class="video-line__video"
-        src="./images/file.mp4"
-        autoplay
-        muted
-        loop
-        playsinline
-      ></video>
-
-      <div class="video-line__overlay"></div>
-
-      <div class="video-line__inner">
-        <h2 class="section__title-script">Wishes</h2>
-
-        <div class="notes">
-          <article class="note">
-            <div class="note-number">1</div>
-            <p class="note-text">
-              Главное для нас - ваше присутствие на свадьбе и ваше внимание.
-              а радость доставит любой подарок в конверте
-            </p>
-          </article>
-
-          <article class="note">
-            <div class="note-number">2</div>
-            <p class="note-text">
-              Будем благодарны, если вы воздержитесь от криков «Горько»
-              на празднике, ведь поцелуй — это знак выражения чувств,
-              он не может быть по заказу.
-            </p>
-          </article>
-        </div>
-      </div>
-    </section>
-
     <!-- RSVP -->
     <section id="rsvp" class="rsvp section">
       <div class="wrapper">
@@ -461,6 +465,43 @@
       </div>
     </section>
 
+<section class="video-line" id="wishes">
+  <video
+    class="video-line__video"
+    src="./images/file.mp4"
+    autoplay
+    muted
+    loop
+    playsinline
+  ></video>
+
+  <div class="video-line__overlay"></div>
+
+  <div class="video-line__inner">
+    <h2 class="section__title-script">Wishes</h2>
+
+    <div class="notes">
+      <article class="note">
+        <div class="note-number">1</div>
+        <p class="note-text">
+          Главное для нас - ваше присутствие на свадьбе и ваше внимание.
+          а радость доставит любой подарок в конверте
+        </p>
+      </article>
+
+      <article class="note">
+        <div class="note-number">2</div>
+        <p class="note-text">
+          Пожалуйста, вместо цветов, оформите
+          <a href="https://bouquet4event.ru/" target="_blank" class="flower-link">цветочную подписку</a>
+        </p>
+      </article>
+    </div>
+
+    <p class="video-line__farewell">До скорой встречи!</p>
+  </div>
+</section>
+
     <!-- FOOTER -->
     <section class="design-authors">
       <div class="design-authors__inner">
@@ -494,6 +535,10 @@
       </div>
     </section>
   </div>
+
+  <audio id="bg-music" loop playsinline preload="auto">
+    <source src="./images/music.mp3" type="audio/mpeg">
+  </audio>
 
   <script src="./script.js"></script>
 </body>
