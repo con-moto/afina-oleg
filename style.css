@@ -864,6 +864,13 @@ body {
   margin-bottom: 12px;
 }
 
+.location-photo {
+  display: block;
+  width: 80%;
+  height: auto;
+  margin: 1.5rem auto; 
+}
+
 /* === DRESS CODE === */
 
 .section--dress {
@@ -881,27 +888,107 @@ body {
 .dress {
   display: flex;
   justify-content: center;
-  gap: 26px;
-  margin-top: 40px;
+  gap: 12px;
+  margin: 1.5rem 0;
 }
 
 .dress__dot {
-  width: 42px;
-  height: 42px;
-  border-radius: 0;
+  width: 14%;
+  aspect-ratio: 1;
   display: inline-block;
 }
 
-.dress__dot--1 {
-  background: #d4c1b0;
+.dress__dot--1 { background-color: #f9f3c6; } /* бледно-жёлтый */
+.dress__dot--2 { background-color: #d4a017; } /* охра */
+.dress__dot--3 { background-color: #5c3a21; } /* шоколадный */
+.dress__dot--4 { background-color: #c9a9a6; } /* пыльно-розовый */
+.dress__dot--5 { background-color: #556b2f; } /* болотно-зелёный */
+
+/* Фотография дресс-кода */
+.dress-code-photo {
+  display: block;
+  width: 80%;
+  height: auto;
+  margin: 1.5rem auto;
 }
 
-.dress__dot--2 {
-  background: #4a3b2b;
+/* Слайдер дресс-кода */
+.dress-code-slider {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin: 1.5rem auto;
+  width: 70%;
+  max-width: 600px;
 }
 
-.dress__dot--3 {
-  background: #f0e2d5;
+.slider-container {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+}
+
+.slider-img {
+  width: 100%;
+  height: auto;
+  display: none; /* скрываем все изображения */
+  transition: opacity 0.3s ease;
+}
+
+.slider-img--active {
+  display: block; /* показываем активное */
+}
+
+/* Кнопки-стрелки */
+.slider-btn {
+  position: absolute;
+  top: 50%;
+  transform: translateY(-50%);
+  background-color: rgb(175, 172, 172);
+  border: none;
+  width: 40px;
+  height: 40px;
+  font-size: 1.5rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+  z-index: 2;
+}
+
+.slider-btn:hover {
+  background-color: rgba(255, 255, 255, 1);
+}
+
+.slider-btn--prev {
+  left: -15%;
+}
+
+.slider-btn--next {
+  right: -15%;
+}
+
+/* Адаптив для мобильных */
+@media (max-width: 768px) {
+  .dress-code-slider {
+    width: 90%;
+  }
+
+  .slider-btn {
+    width: 32px;
+    height: 32px;
+    font-size: 1.2rem;
+  }
+
+  .slider-btn--prev {
+    left: -10%;
+  }
+
+  .slider-btn--next {
+    right: -10%;
+  }
 }
 
 /* === DETAILS === */
@@ -1064,11 +1151,16 @@ body {
 .video-line {
   position: relative;
   overflow: hidden;
+  /* делаем секцию высотной через паддинги, чтобы контент всегда помещался,
+     а видео было фоном под ними */
+  padding: var(--section-padding-block) var(--section-padding-inline);
 }
 
 .video-line__video {
+  position: absolute;
+  inset: 0;
   width: 100%;
-  height: 690px;
+  height: 100%;       /* растягиваем видео на всю высоту секции */
   object-fit: cover;
   display: block;
 }
@@ -1080,8 +1172,9 @@ body {
 }
 
 .video-line__inner {
-  position: absolute;
-  inset: 0;
+  /* больше НЕ absolute, чтобы не ломать высоту и паддинги секции */
+  position: relative;
+  z-index: 1;
   padding: 90px 40px;
   display: flex;
   flex-direction: column;
@@ -1512,6 +1605,162 @@ body {
   transform: translateY(-2px);
 }
 
+/* === CALENDAR / ДАТА ТОРЖЕСТВА === */
+
+.section--calendar {
+  position: relative;
+  background: var(--color-bg-light);
+  padding: var(--section-padding-block) var(--section-padding-inline);
+}
+
+/* Декор по бокам, как в intro / form */
+.section--calendar::before,
+.section--calendar::after {
+  content: "";
+  position: absolute;
+  width: 220px;
+  aspect-ratio: 1;
+  background-size: contain;
+  background-repeat: no-repeat;
+  background-position: center;
+  opacity: 0.9;
+}
+
+.calendar-inner {
+  text-align: center;
+  position: relative;
+  z-index: 1; /* чтобы контент был над декором */
+}
+
+.section--calendar .section__title-script {
+  margin-bottom: 28px;
+}
+
+/* Увеличенный календарь (примерно x1.3) */
+.calendar-card {
+  display: inline-block;
+  padding: 42px 52px 46px; /* больше паддинги */
+  border-radius: 22px;
+  max-width: 75%;
+  margin-top: 7%;
+  width: 100%;
+  background: #fff;
+  box-shadow: 0 16px 46px rgba(0, 0, 0, 0.08);
+  transform: scale(1.15); /* легкое масштабирование */
+  transform-origin: center;
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  margin-bottom: 22px;
+  font-family: var(--font-bebas);
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+  font-size: 1.25rem;
+  color: #561e29; /* ваш бордовый */
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 10px 12px;
+  margin-top: 12px;
+  font-family: var(--font-bebas);
+  font-size: 1.1rem;
+  letter-spacing: 0.08em;
+}
+
+.calendar-weekday {
+  color: rgba(0, 0, 0, 0.7);
+  text-transform: uppercase;
+}
+
+.calendar-day {
+  min-width: 0;
+  min-height: 30px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--color-text-main);
+}
+
+.calendar-day--empty {
+  visibility: hidden;
+}
+
+/* Число внутри сердца */
+.calendar-heart-date {
+  position: relative;
+  z-index: 1;
+  color: #561e29;
+  font-weight: 600;
+}
+
+.calendar-heart-wrapper {
+  position: relative;
+  width: 40px;
+  height: 36px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* SVG всегда вписывается в wrapper */
+.calendar-heart-svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.calendar-heart-date {
+  position: relative;
+  z-index: 1;
+  color: #561e29;
+  font-weight: 600;
+}
+
+
+@media (max-width: 768px) {
+  .section--calendar {
+    padding: calc(var(--section-padding-block) * 0.8)
+      calc(var(--section-padding-inline) * 0.8);
+  }
+
+  .calendar-card {
+    transform: scale(1.05);
+    padding: 32px 36px 38px;
+    max-width: 90%; /* можно дать чуть больше ширины на мобилках */
+  }
+
+  .calendar-grid {
+    gap: 10px 14px;
+    font-size: 1rem;
+  }
+}
+
+
+/* Адаптив: при 432px и ниже — чуть уменьшаем всё */
+@media (max-width: 432px) {
+  .calendar-card {
+    transform: scale(1.0);           /* убираем доп. увеличение */
+    padding: 28px 24px 30px;
+    max-width: 90%;
+  }
+
+  .calendar-grid {
+    gap: 8px 8px;
+    font-size: 0.9rem;
+    letter-spacing: 0.06em;
+  }
+
+  .calendar-heart-wrapper {
+    width: 34px;
+    height: 30px;
+  }
+}
 /* === ADAPTIVE (переписанный) === */
 
 /* Десктопные коррекции */
@@ -1637,11 +1886,6 @@ body {
   .details-row,
   .rsvp-row {
     flex-direction: column;
-  }
-
-  /* video-line — высота поменьше, воздух по бокам */
-  .video-line__video {
-    height: 480px;
   }
 
   .video-line__inner {
@@ -1839,11 +2083,6 @@ body {
     gap: 1vh;
   }
 
-  /* video-line — чуть меньше высота, центр */
-  .video-line__video {
-    height: 420px;
-  }
-
   .video-line__inner {
     padding: 100px 30px;
   }
@@ -1983,14 +2222,9 @@ body {
     transform: rotate(13deg) translateY(0.3vh);   /* почти под левым фото */
   }
   /* video-line — контент не прилипает к краям */
-  .video-line__inner {
-    padding-top: 120px;
-    padding-bottom: 120px;
+  .video-line {
+    padding-block: 90px;
     padding-inline: 20px;
-  }
-
-  .video-line__video {
-    height: 380px;
   }
 
   /* portrait декор подрезаем по бокам */

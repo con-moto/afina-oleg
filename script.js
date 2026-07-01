@@ -302,3 +302,44 @@ document.addEventListener('DOMContentLoaded', () => {
   attachFormHandler("details-form", "details-status");
   attachFormHandler("rsvp-form", "rsvp-status");
 })();
+
+// Слайдер дресс-кода
+document.addEventListener('DOMContentLoaded', function() {
+  const sliderContainer = document.querySelector('.dress-code-slider');
+  
+  if (sliderContainer) {
+    const images = sliderContainer.querySelectorAll('.slider-img');
+    const prevBtn = sliderContainer.querySelector('.slider-btn--prev');
+    const nextBtn = sliderContainer.querySelector('.slider-btn--next');
+    let currentIndex = 0;
+
+    function showSlide(index) {
+      images.forEach((img, i) => {
+        img.classList.remove('slider-img--active');
+        if (i === index) {
+          img.classList.add('slider-img--active');
+        }
+      });
+    }
+
+    function nextSlide() {
+      currentIndex = (currentIndex + 1) % images.length;
+      showSlide(currentIndex);
+    }
+
+    function prevSlide() {
+      currentIndex = (currentIndex - 1 + images.length) % images.length;
+      showSlide(currentIndex);
+    }
+
+    prevBtn.addEventListener('click', prevSlide);
+    nextBtn.addEventListener('click', nextSlide);
+
+    // Опционально: переключение по клику на изображение
+    sliderContainer.querySelector('.slider-container').addEventListener('click', function(e) {
+      if (e.target.classList.contains('slider-img')) {
+        nextSlide();
+      }
+    });
+  }
+});
